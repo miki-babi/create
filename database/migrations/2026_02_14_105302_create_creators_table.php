@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('avatar_path')->nullable();
             $table->json('social_platforms')->nullable();
             $table->json('niches')->nullable();
+            $table->boolean('is_verified')->default(false);
+
             $table->timestamps();
         });
     }

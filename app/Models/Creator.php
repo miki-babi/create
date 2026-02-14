@@ -15,6 +15,7 @@ class Creator extends Model
         'avatar_path',
         'social_platforms',
         'niches',
+        'is_verified',
     ];
 
     protected $casts = [
