@@ -1,0 +1,98 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Promoter;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+
+class PromoterController extends Controller
+{
+    public function register(Request $request): View
+    {
+        return view('promoter.create', [
+            'promoters' => Promoter::query()->latest()->take(20)->get(),
+            'activePromoter' => $this->activePromoter($request),
+        ]);
+    }
+
+    public function store(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'company_name' => ['required', 'string', 'max:150'],
+            'telegramusername' => ['nullable', 'string', 'max:100'],
+            'telegramid' => ['nullable', 'string', 'max:100'],
+            'company_description' => ['nullable', 'string', 'max:1500'],
+        ]);
+
+        $promoter = Promoter::create([
+            'company_name' => $validated['company_name'],
+            'telegramusername' => $validated['telegramusername'] ?? null,
+            'telegramid' => $validated['telegramid'] ?? null,
+            'company_description' => $validated['company_description'] ?? null,
+            'is_verified' => false,
+        ]);
+
+        $request->session()->put('promoter_id', $promoter->id);
+
+        return redirect()
+            ->route('promoter.profile', $promoter)
+            ->with('status', 'Promoter profile created and set as active.');
+    }
+
+    public function switch(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'promoter_id' => ['required', 'integer', 'exists:promoters,id'],
+        ]);
+
+        $request->session()->put('promoter_id', (int) $validated['promoter_id']);
+
+        return redirect()
+            ->back()
+            ->with('status', 'Active promoter profile changed.');
+    }
+
+    public function profile(Request $request, Promoter $promoter): View
+    {
+        $promoter->loadCount('campaigns');
+
+        return view('promoter.profile', [
+            'promoter' => $promoter,
+            'activePromoter' => $this->activePromoter($request),
+        ]);
+    }
+
+    public function campaigns(Request $request): RedirectResponse|View
+    {
+        $promoter = $this->activePromoter($request);
+
+        if ($promoter === null) {
+            return redirect()
+                ->route('promoter.register')
+                ->with('error', 'Register or switch to a promoter profile first.');
+        }
+
+        $campaigns = $promoter->campaigns()
+            ->withCount('applications')
+            ->latest()
+            ->paginate(20);
+
+        return view('promoter.jobs', [
+            'promoter' => $promoter,
+            'campaigns' => $campaigns,
+        ]);
+    }
+
+    private function activePromoter(Request $request): ?Promoter
+    {
+        $promoterId = $request->session()->get('promoter_id');
+
+        if ($promoterId === null) {
+            return null;
+        }
+
+        return Promoter::find($promoterId);
+    }
+}
