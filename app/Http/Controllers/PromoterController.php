@@ -117,8 +117,11 @@ class PromoterController extends Controller
         //     ]
         // );
 
-        $telegramService = new TelegramService();
-        $telegramService->sendMiniAppButton($chatId);
+        if (($payload['message']['text'] ?? '') === '/start') {
+     $telegramService = new TelegramService();
+        $telegramService->sendMiniAppButton($chatId);}
+
+   
 
         $promoter=Promoter::findOrCreate(
             ['telegramid' => $chatId],
