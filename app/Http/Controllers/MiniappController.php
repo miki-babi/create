@@ -44,7 +44,18 @@ class MiniappController extends Controller
         );
 
         if ($promoter) {
+            $user=\App\Models\User::updateOrCreate(
+                ['telegramid' => $tgId],
+                [
+                    'name' => $tgUser['first_name'] ?? 'Telegram User',
+                    'telegramid' => $tgUser['id'] ?? null,
+                    'email' => null,
+                    'password' => null,
+                    'role' => 'promoter',
+                ]
+            );
             Log::info("Promoter record created or found for Telegram ID: {$tgId}");
+
         } else {
             Log::error("Failed to create or find promoter for Telegram ID: {$tgId}");
         }
