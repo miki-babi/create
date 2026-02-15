@@ -6,9 +6,9 @@ use App\Models\Campaign;
 use App\Models\CampaignApplication;
 use App\Models\Creator;
 use App\Models\Promoter;
-use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CampaignController extends Controller
@@ -72,7 +72,7 @@ class CampaignController extends Controller
         $role = Auth::user()->role;
 
 
-        if (!$role ==="promoter") {
+        if ($role !=="promoter") {
             return redirect()
                 ->route('promoter.register')
                 ->with('error', 'Register or switch to a promoter profile to post campaigns.');
