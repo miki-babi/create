@@ -45,6 +45,7 @@ class MiniappController extends Controller
                 'is_verified' => false,
             ]
         );
+        $request->session()->put('promoter_id', $promoter->id);
 
         if ($promoter) {
             User::updateOrCreate(
