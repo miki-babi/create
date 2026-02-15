@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Promoter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class PromoterController extends Controller
@@ -94,5 +95,20 @@ class PromoterController extends Controller
         }
 
         return Promoter::find($promoterId);
+    }
+
+    public function handleWebhook(Request $request): RedirectResponse
+    {
+        $payload = $request->all();
+
+        // Log the payload for debugging
+        Log::info('Received Promoter Webhook:', $payload);
+
+        // Process the webhook data as needed
+        // For example, you might want to update promoter information based on the payload
+
+        return redirect()
+            ->back()
+            ->with('status', 'Webhook received and processed.');
     }
 }
