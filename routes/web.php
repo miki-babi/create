@@ -3,8 +3,11 @@
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CreatorController;
 use App\Http\Controllers\PromoterController;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 
+
+Route::post('webhook', [CampaignController::class, 'handleWebhook'])->name('webhook')->withoutMiddleware([VerifyCsrfToken::class]);
 Route::get('/', [CampaignController::class, 'index'])->name('home');
 
 Route::prefix('campaigns')->name('campaigns.')->group(function () {
