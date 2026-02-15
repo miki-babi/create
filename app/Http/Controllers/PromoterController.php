@@ -69,7 +69,9 @@ class PromoterController extends Controller
 
     public function campaigns(Request $request): RedirectResponse|View
     {
-        $promoter = Auth::user()->telegramid ;
+        $active = Auth::user()->telegramid ;
+
+        $promoter = Promoter::where('telegramid', $active)->first();
         Log::info('Active promoter Telegram ID:', ['telegramid' => $promoter]);
 
         if ($promoter === null) {
@@ -78,10 +80,16 @@ class PromoterController extends Controller
                 ->with('error', 'Register or switch to a promoter profile first.');
         }
 
-        $campaigns = $promoter->campaigns()
-            ->withCount('applications')
-            ->latest()
-            ->paginate(20);
+            $campaigns = Promoter::where('telegramid', $promoter)
+                ->first()
+                ->campaigns()
+                ->withCount('applications')
+                ->latest()
+                ->paginate(20);
+        // $campaigns = $promoter->campaigns()
+        //     ->withCount('applications')
+        //     ->latest()
+        //     ->paginate(20);
 
         return view('promoter.jobs', [
             'promoter' => $promoter,
