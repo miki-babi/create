@@ -26,7 +26,7 @@ class TelegramService
                             [
                                 'text' => 'Launch Mini App 🚀',
                                 'web_app' => [
-                                    'url' => 'https://create.axumcode.com/promoter/register'
+                                    'url' => 'https://create.axumcode.com/promoter/miniapp-init'
                                 ]
                             ]
                         ]

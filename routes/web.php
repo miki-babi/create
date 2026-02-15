@@ -12,6 +12,10 @@ Route::post('webhook/promoter', [PromoterController::class, 'handleWebhook'])->n
 
 
 // Receive initData from Telegram
+Route::get('/miniapp/init', function () {
+    return view('miniapp-init');
+})->name('miniapp.init');
+
 Route::post('/miniapp/init', [MiniappController::class, 'handleInit'])
     ->name('miniapp.init');
 
