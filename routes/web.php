@@ -2,12 +2,24 @@
 
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\CreatorController;
+use App\Http\Controllers\MiniappController;
 use App\Http\Controllers\PromoterController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 
 Route::post('webhook/promoter', [PromoterController::class, 'handleWebhook'])->name('webhook')->withoutMiddleware([VerifyCsrfToken::class]);
+
+
+// Receive initData from Telegram
+Route::post('/miniapp/init', [MiniappController::class, 'handleInit'])
+    ->name('miniapp.init');
+
+// Main Mini App page after init
+Route::get('/miniapp', function () {
+    return view('miniapp-main');
+})->name('miniapp.main');
+
 Route::get('/', [CampaignController::class, 'index'])->name('home');
 
 Route::prefix('campaigns')->name('campaigns.')->group(function () {
