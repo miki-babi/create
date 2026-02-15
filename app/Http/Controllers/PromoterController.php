@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campaign;
 use App\Models\Promoter;
 use App\Services\TelegramService;
 use Illuminate\Http\RedirectResponse;
@@ -80,9 +81,7 @@ class PromoterController extends Controller
                 ->with('error', 'Register or switch to a promoter profile first.');
         }
 
-            $campaigns = Promoter::where('telegramid', $promoter)
-                ->first()
-                ->campaigns()
+            $campaigns = Campaign::where('telegramid', $promoter->telegramid)
                 ->withCount('applications')
                 ->latest()
                 ->paginate(20);
