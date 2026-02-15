@@ -5,6 +5,7 @@ use App\Http\Controllers\CreatorController;
 use App\Http\Controllers\MiniappController;
 use App\Http\Controllers\PromoterController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,6 +14,7 @@ Route::post('webhook/promoter', [PromoterController::class, 'handleWebhook'])->n
 
 // Receive initData from Telegram
 Route::get('/miniapp/init', function () {
+    Log::info('Received Telegram MiniApp init request');
     return view('miniapp-init');
 })->name('miniapp.init');
 
