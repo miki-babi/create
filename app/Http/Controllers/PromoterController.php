@@ -107,15 +107,15 @@ class PromoterController extends Controller
 
         $chatId = $payload['message']['chat']['id'];
 
-        $promoter=Promoter::findOrCreate(
-            ['telegramid' => $chatId],
-            [
-                'company_name' => 'Telegram User ' . $chatId,
-                'telegramusername' => $payload['message']['chat']['username'] ?? null,
-                'company_description' => 'Registered via Telegram Webhook',
-                'is_verified' => false,
-            ]
-        );
+        // $promoter=Promoter::findOrCreate(
+        //     ['telegramid' => $chatId],
+        //     [
+        //         'company_name' => 'Telegram User ' . $chatId,
+        //         'telegramusername' => $payload['message']['chat']['username'] ?? null,
+        //         'company_description' => 'Registered via Telegram Webhook',
+        //         'is_verified' => false,
+        //     ]
+        // );
 
         $telegramService = new TelegramService();
         $telegramService->sendMiniAppButton($chatId);
@@ -125,6 +125,6 @@ class PromoterController extends Controller
 
         // Process the webhook data as needed
         // For example, you might want to update promoter information based on the payload
-return response()->json(['status' => 'ok']);
+        return response()->json(['status' => 'ok']);
     }
 }
