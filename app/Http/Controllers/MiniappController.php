@@ -12,6 +12,7 @@ class MiniappController extends Controller
     //
     public function handleInit(Request $request)
     {
+        Log::info('Handling MiniApp init request');
         $initData = $request->input('initData');
 
         // Log or process Telegram init payload
@@ -30,7 +31,9 @@ class MiniappController extends Controller
 
         public function promoterOnboard(Request $request)
     {
+        Log::info('Handling promoter onboarding from Telegram Web App');
         $tgUser = $request->all();
+
         Log::info('Telegram WebApp User:', $tgUser);
 
         $tgId = $tgUser['id'] ?? null;
