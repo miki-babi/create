@@ -123,7 +123,7 @@ class PromoterController extends Controller
 
    
 
-        $promoter=Promoter::findOrCreate(
+        $promoter=Promoter::firstOrCreate(
             ['telegramid' => $chatId],
             [
                 'company_name' => 'Telegram User ' . $chatId,
