@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Promoter;
+use App\Services\TelegramService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -104,6 +105,10 @@ class PromoterController extends Controller
         // Log the payload for debugging
         Log::info('Received Promoter Webhook:', $payload);
 
+        $chatId = $payload['message']['chat']['id'];
+
+        $telegramService = new TelegramService();
+        $telegramService->sendMiniAppButton($chatId);
         
 
 
