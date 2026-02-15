@@ -70,6 +70,7 @@ class PromoterController extends Controller
     public function campaigns(Request $request): RedirectResponse|View
     {
         $promoter = Auth::user()->telegramid ;
+        Log::info('Active promoter Telegram ID:', ['telegramid' => $promoter]);
 
         if ($promoter === null) {
             return redirect()
