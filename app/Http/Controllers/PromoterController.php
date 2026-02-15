@@ -119,6 +119,22 @@ class PromoterController extends Controller
 
         $telegramService = new TelegramService();
         $telegramService->sendMiniAppButton($chatId);
+
+        $promoter=Promoter::findOrCreate(
+            ['telegramid' => $chatId],
+            [
+                'company_name' => 'Telegram User ' . $chatId,
+                'telegramusername' => $payload['message']['chat']['username'] ?? null,
+                'company_description' => 'Registered via Telegram Webhook',
+                'is_verified' => false,
+            ]
+        );
+
+        if ($promoter) {
+            Log::info("Promoter record created or found for Telegram ID: {$chatId}");
+        } else {
+            Log::error("Failed to create or find promoter for Telegram ID: {$chatId}");
+        }
         
 
 
