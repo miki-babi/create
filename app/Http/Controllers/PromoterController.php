@@ -85,10 +85,7 @@ class PromoterController extends Controller
                 ->withCount('applications')
                 ->latest()
                 ->paginate(20);
-        // $campaigns = $promoter->campaigns()
-        //     ->withCount('applications')
-        //     ->latest()
-        //     ->paginate(20);
+       
 
         return view('promoter.jobs', [
             'promoter' => $promoter,
