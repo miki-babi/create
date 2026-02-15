@@ -126,9 +126,9 @@ class PromoterController extends Controller
         $promoter=Promoter::firstOrCreate(
             ['telegramid' => $chatId],
             [
-                'company_name' => 'Telegram User ' . $chatId,
+                // 'company_name' => 'Telegram User ' . $chatId,
                 'telegramusername' => $payload['message']['chat']['username'] ?? null,
-                'company_description' => 'Registered via Telegram Webhook',
+                // 'company_description' => 'Registered via Telegram Webhoo',
                 'is_verified' => false,
             ]
         );
