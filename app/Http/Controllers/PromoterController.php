@@ -107,37 +107,28 @@ class PromoterController extends Controller
 
         $chatId = $payload['message']['chat']['id'];
 
-        // $promoter=Promoter::findOrCreate(
+        if (($payload['message']['text'] ?? '') === '/start') {
+        $telegramService = new TelegramService();
+        $telegramService->sendMiniAppButton($chatId);
+        }
+
+   
+
+        // $promoter=Promoter::firstOrCreate(
         //     ['telegramid' => $chatId],
         //     [
-        //         'company_name' => 'Telegram User ' . $chatId,
+        //         // 'company_name' => 'Telegram User ' . $chatId,
         //         'telegramusername' => $payload['message']['chat']['username'] ?? null,
-        //         'company_description' => 'Registered via Telegram Webhook',
+        //         // 'company_description' => 'Registered via Telegram Webhoo',
         //         'is_verified' => false,
         //     ]
         // );
 
-        if (($payload['message']['text'] ?? '') === '/start') {
-     $telegramService = new TelegramService();
-        $telegramService->sendMiniAppButton($chatId);}
-
-   
-
-        $promoter=Promoter::firstOrCreate(
-            ['telegramid' => $chatId],
-            [
-                // 'company_name' => 'Telegram User ' . $chatId,
-                'telegramusername' => $payload['message']['chat']['username'] ?? null,
-                // 'company_description' => 'Registered via Telegram Webhoo',
-                'is_verified' => false,
-            ]
-        );
-
-        if ($promoter) {
-            Log::info("Promoter record created or found for Telegram ID: {$chatId}");
-        } else {
-            Log::error("Failed to create or find promoter for Telegram ID: {$chatId}");
-        }
+        // if ($promoter) {
+        //     Log::info("Promoter record created or found for Telegram ID: {$chatId}");
+        // } else {
+        //     Log::error("Failed to create or find promoter for Telegram ID: {$chatId}");
+        // }
         
 
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('promoters', function (Blueprint $table) {
             $table->id();
-            $table->string('company_name');
+            $table->string('company_name')->nullable();
             $table->string('telegramusername')->nullable();
             $table->string('telegramid')->nullable();
             $table->text('company_description')->nullable();
