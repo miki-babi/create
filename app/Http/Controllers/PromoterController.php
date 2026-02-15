@@ -104,6 +104,10 @@ class PromoterController extends Controller
         // Log the payload for debugging
         Log::info('Received Promoter Webhook:', $payload);
 
+        
+
+
+
         // Process the webhook data as needed
         // For example, you might want to update promoter information based on the payload
 
