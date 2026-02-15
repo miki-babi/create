@@ -360,12 +360,12 @@
     </header>
 
     <main class="mx-auto max-w-5xl px-4 pb-12 pt-7">
-        <div class="mb-4 flex flex-wrap gap-2 reveal">
+        {{-- <div class="mb-4 flex flex-wrap gap-2 reveal">
             <span class="nav-pill">Creator: {{ $activeCreator?->display_name ?? 'none' }}</span>
             <span class="nav-pill">Promoter: {{ $activePromoter?->company_name ?? 'none' }}</span>
             <a href="{{ route('promoter.campaigns') }}" class="nav-pill">Dashboard</a>
             <a href="{{ route('campaigns.create') }}" class="nav-pill">Post</a>
-        </div>
+        </div> --}}
 
         @if (session('status'))
             <div class="surface-strong mb-4 border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900 reveal">
