@@ -6,6 +6,7 @@ use App\Models\Promoter;
 use App\Services\TelegramService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
@@ -68,7 +69,7 @@ class PromoterController extends Controller
 
     public function campaigns(Request $request): RedirectResponse|View
     {
-        $promoter = $this->activePromoter($request);
+        $promoter = Auth::user()->telegramid ;
 
         if ($promoter === null) {
             return redirect()

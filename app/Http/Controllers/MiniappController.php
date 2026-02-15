@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class MiniappController extends Controller
@@ -47,7 +48,7 @@ class MiniappController extends Controller
         );
 
         if ($promoter) {
-            User::updateOrCreate(
+            $user= User::firstOrCreate(
                 ['telegramid' => $tgId],
                 [
                     'name' => $tgUser['first_name'] ?? 'Telegram User',
@@ -57,6 +58,10 @@ class MiniappController extends Controller
                     'role' => 'promoter',
                 ]
             );
+             Auth::login($user); // logs in user by ID
+
+
+
             Log::info("Promoter record created or found for Telegram ID: {$tgId}");
 
         } else {
