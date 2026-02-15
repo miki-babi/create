@@ -45,7 +45,6 @@ class MiniappController extends Controller
                 'is_verified' => false,
             ]
         );
-        $request->session()->put('promoter_id', $promoter->id);
 
         if ($promoter) {
             User::updateOrCreate(
@@ -67,7 +66,7 @@ class MiniappController extends Controller
         return response()->json([
             'status' => 'ok',
             'message' => 'Promoter onboarded successfully',
-            'redirect' => route('miniapp.main', ['tgId' => $tgId])
+            'redirect' => route('promoter.campaigns')
         ]);
         
     }
