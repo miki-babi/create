@@ -1,36 +1,55 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Mini App Init</title>
-    <meta charset="UTF-8">
-<script src="https://telegram.org/js/telegram-web-app.js?59"></script>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8" />
+    <title>Telegram User Info</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
+
 <body>
-    <h1>Initializing Mini App...</h1>
+    <h2>Welcome, Telegram User!</h2>
+    <p><strong>First Name:</strong> <span id="firstName">Loading...</span></p>
+    <p><strong>Username:</strong> <span id="username">Loading...</span></p>
+    <p><strong>Telegram User ID:</strong> <span id="userId">Loading...</span></p>
 
     <script>
-        const tg = window.Telegram?.WebApp;
-        if (!tg) alert("Not running inside Telegram Web App!");
+        window.addEventListener("load", () => {
+            const tg = window.Telegram.WebApp;
+            tg.expand();
 
-        // Immediately send initData to server
-        fetch("{{ route('miniapp.init') }}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: JSON.stringify({ initData: tg.initData })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.status === 'ok') {
-                // Redirect user to main Mini App view
-                window.location.href = "{{ route('miniapp.main') }}";
-            } else {
-                alert("Failed to initialize Mini App");
-            }
+            const user = tg.initDataUnsafe?.user || {};
+
+            // Display on screen
+            document.getElementById("firstName").innerText = user.first_name || 'N/A';
+            document.getElementById("username").innerText = user.username || 'N/A';
+            document.getElementById("userId").innerText = user.id || 'N/A';
+
+            // Send to server immediately
+            fetch("/miniapp/promoter-onboard", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            "content")
+                    },
+                    body: JSON.stringify(user),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.redirect) {
+                        window.location.href = data.redirect;
+                    } else {
+                        alert("No redirect provided");
+                    }
+                })
+                .catch(err => {
+                    console.error("Error:", err);
+                    alert("Failed to connect to server");
+                });
         });
     </script>
 </body>
+
 </html>

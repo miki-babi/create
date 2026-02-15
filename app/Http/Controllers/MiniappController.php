@@ -23,4 +23,14 @@ class MiniappController extends Controller
             'message' => 'Init received'
         ]);
     }
+        public function promoterOnboard(Request $request)
+    {
+        $tgUser = $request->all();
+        Log::info('Telegram WebApp User:', $tgUser);
+
+        $tgId = $tgUser['id'] ?? null;
+        // Check if Telegram ID is provided
+        Log::info('Telegram ID:', ['tgId' => $tgId]);
+        
+    }
 }

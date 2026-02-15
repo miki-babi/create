@@ -20,6 +20,9 @@ Route::get('/promoter/miniapp-init', function () {
 
 Route::post('/miniapp/init', [MiniappController::class, 'handleInit'])
     ->name('miniapp.init');
+    
+Route::post('/miniapp/promoter-onboard', [MiniappController::class, 'promoterOnboard'])
+    ->name('miniapp.promoter.onboard');
 
 // Main Mini App page after init
 Route::get('/miniapp', function () {
