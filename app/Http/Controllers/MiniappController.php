@@ -33,7 +33,7 @@ class MiniappController extends Controller
         // Check if Telegram ID is provided
         Log::info('Telegram ID:', ['tgId' => $tgId]);
 
-        $promoter = \App\Models\Promoter::firstOrCreate(
+        $promoter = \App\Models\Promoter::updateOrCreate(
             ['telegramid' => $tgId],
             [
                 // 'company_name' => 'Telegram User ' . $tgId,
