@@ -81,7 +81,7 @@ class PromoterController extends Controller
                 ->with('error', 'Register or switch to a promoter profile first.');
         }
 
-            $campaigns = Campaign::where('telegramid', $promoter->telegramid)
+            $campaigns = Campaign::where('promoter_id', $promoter->id)
                 ->withCount('applications')
                 ->latest()
                 ->paginate(20);
