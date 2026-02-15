@@ -23,6 +23,7 @@ class MiniappController extends Controller
             'message' => 'Init received'
         ]);
     }
+
         public function promoterOnboard(Request $request)
     {
         $tgUser = $request->all();
@@ -31,6 +32,28 @@ class MiniappController extends Controller
         $tgId = $tgUser['id'] ?? null;
         // Check if Telegram ID is provided
         Log::info('Telegram ID:', ['tgId' => $tgId]);
+
+        $promoter = \App\Models\Promoter::firstOrCreate(
+            ['telegramid' => $tgId],
+            [
+                // 'company_name' => 'Telegram User ' . $tgId,
+                'telegramid' => $tgUser['id'] ?? null,
+                // 'company_description' => 'Registered via Telegram Webhook',
+                'is_verified' => false,
+            ]
+        );
+
+        if ($promoter) {
+            Log::info("Promoter record created or found for Telegram ID: {$tgId}");
+        } else {
+            Log::error("Failed to create or find promoter for Telegram ID: {$tgId}");
+        }
+
+        return response()->json([
+            'status' => 'ok',
+            'message' => 'Promoter onboarded successfully',
+            'redirect' => route('miniapp.main', ['tgId' => $tgId])
+        ]);
         
     }
 }
