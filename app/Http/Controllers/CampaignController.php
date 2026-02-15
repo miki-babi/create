@@ -83,7 +83,7 @@ class CampaignController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $promoter = $this->activePromoter($request);
+        $promoter = Auth::user();
 
         if ($promoter === null) {
             return redirect()
@@ -100,13 +100,14 @@ class CampaignController extends Controller
             'timeline' => ['nullable', 'date'],
         ]);
 
-        $campaign = $promoter->campaigns()->create([
+        $campaign = Campaign::create([
             'title' => $validated['title'],
             'description' => $validated['description'] ?? null,
             'platforms' => $this->splitList($validated['platforms'] ?? null),
             'niche' => $validated['niche'] ?? null,
             'budget' => $validated['budget'] ?? null,
             'timeline' => $validated['timeline'] ?? null,
+            'promoter_id' => $promoter->id,
         ]);
 
         return redirect()
