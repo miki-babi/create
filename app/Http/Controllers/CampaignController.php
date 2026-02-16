@@ -48,43 +48,43 @@ class CampaignController extends Controller
         ]);
     }
 
-public function show(Request $request, Campaign $campaign): View
-{
-    $campaign->load(['promoter', 'applications.creator']);
+    public function show(Request $request, Campaign $campaign): View
+    {
+        $campaign->load(['promoter', 'applications.creator']);
 
-    if (!Auth::check()) {
-    abort(403);
-}
-    // $userId = (int) Auth::id();
-$userId = (int) Auth::id();
+        if (!Auth::check()) {
+            abort(403);
+        }
+        // $userId = (int) Auth::id();
+        $userId = (int) Auth::id();
 
-    Log::info('Showing campaign', [
-        'campaign_id' => $campaign->id,
-        'promoter_id' => $campaign->promoter_id,
-        'auth_user_id' => $userId
-    ]);
+        Log::info('Showing campaign', [
+            'campaign_id' => $campaign->id,
+            'promoter_id' => $campaign->promoter_id,
+            'auth_user_id' => $userId
+        ]);
 
-$promoterId = (int) $campaign->promoter_id;
+        $promoterId = (int) $campaign->promoter_id;
 
-$role = $userId === $promoterId ? 'promoter' : 'creator';
+        $role = $userId === $promoterId ? 'promoter' : 'creator';
 
-    Log::info('Determined user role for campaign view', [
-        'role' => $role,
-    ]);
+        Log::info('Determined user role for campaign view', [
+            'role' => $role,
+        ]);
 
-    return view('job.show', [
-        'campaign' => $campaign,
-        'role' => $role,
-        'alreadyApplied' => $campaign->applications->contains('creator_id', $userId),
-    ]);
-}
+        return view('job.show', [
+            'campaign' => $campaign,
+            'role' => $role,
+            'alreadyApplied' => $campaign->applications->contains('creator_id', $userId),
+        ]);
+    }
 
     public function create(Request $request): View|RedirectResponse
     {
         $role = Auth::user()->role;
 
 
-        if ($role !=="promoter") {
+        if ($role !== "promoter") {
             return redirect()
                 ->route('promoter.register')
                 ->with('error', 'Register or switch to a promoter profile to post campaigns.');
@@ -129,7 +129,11 @@ $role = $userId === $promoterId ? 'promoter' : 'creator';
 
     public function edit(Request $request, Campaign $campaign): View
     {
-        $this->authorizePromoterCampaignAccess($request, $campaign);
+        // $this->authorizePromoterCampaignAccess($request, $campaign);
+            $promoter = Auth::user();
+        if ($promoter === null || $campaign->promoter_id !== $promoter->id) {
+            abort(403);
+        }
 
         return view('job.edit', [
             'campaign' => $campaign,
@@ -311,7 +315,7 @@ $role = $userId === $promoterId ? 'promoter' : 'creator';
         }
 
         return collect(explode(',', $value))
-            ->map(fn ($item) => trim($item))
+            ->map(fn($item) => trim($item))
             ->filter()
             ->values()
             ->all();
@@ -324,7 +328,7 @@ $role = $userId === $promoterId ? 'promoter' : 'creator';
         }
 
         return collect(preg_split('/\r\n|\r|\n/', $value))
-            ->map(fn ($item) => trim($item))
+            ->map(fn($item) => trim($item))
             ->filter()
             ->values()
             ->all();
