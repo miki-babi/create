@@ -3,7 +3,7 @@
 @section('title', $campaign->title)
 
 @section('content')
-    <div class="grid grid-cols-1 gap-4 lg:grid-cols-[1.35fr_0.85fr] reveal">
+    <div class="grid grid-cols-1 gap-4  reveal">
         <section class="surface p-5 md:p-6">
             <div class="flex flex-wrap items-start justify-between gap-4">
                 <div>
