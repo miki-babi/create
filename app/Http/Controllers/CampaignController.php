@@ -52,7 +52,7 @@ class CampaignController extends Controller
     {
         $campaign->load(['promoter', 'applications.creator']);
 
-        Log::info('Showing campaign', ['campaign_id' => $campaign->id, 'promoter_id' => $campaign->promoter_id , 'auth_user_id' => Auth::id()]);
+        Log::info('Showing campaign', ['campaign' => $campaign, 'promoter_id' => $campaign->promoter_id , 'auth_user_id' => Auth::id()]);
 
         // $activeCreator = $this->activeCreator($request);
         $alreadyApplied = false;
