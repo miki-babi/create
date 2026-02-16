@@ -75,7 +75,6 @@ $role = $userId === $promoterId ? 'promoter' : 'creator';
     return view('job.show', [
         'campaign' => $campaign,
         'role' => $role,
-        'alreadyApplied' => false,
     ]);
 }
 

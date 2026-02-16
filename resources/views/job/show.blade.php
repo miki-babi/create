@@ -41,14 +41,14 @@
             <h2 class="headline text-xl font-bold">Actions</h2>
 
             <div class="mt-4 flex flex-col gap-2">
-                @if ($alreadyApplied)
+                @if ($role === 'creator' && $alreadyApplied)
                     <a href="{{ route('creator.applications') }}" class="btn-primary text-center text-sm">View my application</a>
                 @else
                     <a href="{{ route('campaigns.apply', $campaign) }}" class="btn-primary text-center text-sm">Apply as creator</a>
                 @endif
 
-                @if ((int) session('promoter_id') === $campaign->promoter_id)
-                    <a href="{{ route('campaigns.edit', $campaign) }}" class="btn-secondary text-center text-sm">Edit campaign</a>
+                @if ($role === 'promoter')
+                    <a href="{{ route('campaigns.edit', $campaign) }}" class="btn-primary text-center text-sm">Edit campaign</a>
                     <a href="{{ route('campaigns.applicants', $campaign) }}" class="btn-secondary text-center text-sm">Review applicants</a>
                 @endif
             </div>
