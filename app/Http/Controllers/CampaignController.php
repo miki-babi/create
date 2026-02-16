@@ -138,7 +138,7 @@ class CampaignController extends Controller
         // $userId = (int) Auth::id();
         $userId = (int) Auth::id();
 
- $promoterId = (int) $campaign->promoter_id;
+        $promoterId = (int) $campaign->promoter_id;
 
         $role = $userId === $promoterId ? 'promoter' : 'creator';
         Log::info('Editing campaign', [
@@ -158,8 +158,14 @@ class CampaignController extends Controller
 
     public function update(Request $request, Campaign $campaign): RedirectResponse
     {
-        $this->authorizePromoterCampaignAccess($request, $campaign);
-
+        if (!Auth::check()) {
+            abort(403);
+        }
+        $userId = (int) Auth::id();
+        $promoterId = (int) $campaign->promoter_id;
+        if ($userId !== $promoterId) {
+            abort(403);
+        }
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:180'],
             'description' => ['nullable', 'string'],
