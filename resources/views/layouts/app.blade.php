@@ -346,7 +346,7 @@
                 <a href="{{ route('campaigns.index') }}" class="headline text-2xl font-extrabold text-slate-900">CreatorHub</a>
             </div>
 
-            <nav class="mobile-scroll hidden items-center gap-2 md:flex">
+            <nav class="mobile-scroll items-center gap-2 flex">
                 <a href="{{ route('campaigns.index') }}" class="menu-link {{ $isJobs ? 'is-active' : '' }}">Jobs</a>
                 <a href="{{ route('creator.applications') }}" class="menu-link {{ $isApplications ? 'is-active' : '' }}">Applications</a>
                 <a href="{{ route('creator.register') }}" class="menu-link {{ $isProfile ? 'is-active' : '' }}">Profile</a>
