@@ -5,11 +5,7 @@
 @section('content')
     <section class="mb-6 reveal">
         <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
-                <h1 class="headline text-5xl font-extrabold text-slate-900 md:text-6xl">Discovery Feed</h1>
-                <p class="muted mt-2 text-lg">Explore the best brand opportunities for your niche.</p>
-            </div>
-
+            
             <div class="flex items-center gap-2">
                 @if ($isPromoter ?? false)
                     <a href="{{ route('campaigns.create') }}" class="btn-secondary text-sm">Post new</a>
