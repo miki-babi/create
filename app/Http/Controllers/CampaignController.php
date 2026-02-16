@@ -189,6 +189,32 @@ class CampaignController extends Controller
             ->with('status', 'Campaign updated successfully.');
     }
 
+    public function delete(Request $request, Campaign $campaign): RedirectResponse
+    {
+        if (!Auth::check()) {
+            abort(403);
+        }
+
+        $userId = (int) Auth::id();
+        $promoterId = (int) $campaign->promoter_id;
+
+        Log::info('Deleting campaign', [
+            'campaign_id' => $campaign->id,
+            'promoter_id' => $campaign->promoter_id,
+            'auth_user_id' => $userId,
+        ]);
+
+        if ($userId !== $promoterId) {
+            abort(403);
+        }
+
+        $campaign->delete();
+
+        return redirect()
+            ->route('campaigns.index')
+            ->with('status', 'Campaign deleted successfully.');
+    }
+
     public function apply(Request $request, Campaign $campaign): View|RedirectResponse
     {
         $creator = $this->activeCreator($request);

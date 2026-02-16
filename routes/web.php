@@ -44,6 +44,7 @@ Route::prefix('campaigns')->name('campaigns.')->group(function () {
     Route::get('/{campaign}', [CampaignController::class, 'show'])->name('show');
     Route::get('/{campaign}/edit', [CampaignController::class, 'edit'])->name('edit');
     Route::put('/{campaign}', [CampaignController::class, 'update'])->name('update');
+    Route::delete('/{campaign}', [CampaignController::class, 'delete'])->name('delete');
     Route::get('/{campaign}/apply', [CampaignController::class, 'apply'])->name('apply');
     Route::post('/{campaign}/apply', [CampaignController::class, 'storeApplication'])->name('apply.store');
     Route::get('/{campaign}/applicants', [CampaignController::class, 'applicants'])->name('applicants');
