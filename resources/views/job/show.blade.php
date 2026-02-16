@@ -39,7 +39,6 @@
 
         <aside class="surface-strong p-5">
             <h2 class="headline text-xl font-bold">Actions</h2>
-            <p class="muted mt-1 text-sm">Apply as creator or manage as owner promoter.</p>
 
             <div class="mt-4 flex flex-col gap-2">
                 @if ($alreadyApplied)
@@ -59,7 +58,6 @@
                 <div class="grid grid-cols-1 gap-2 text-sm">
                     <div class="meta-card">Applications: {{ $campaign->applications->count() }}</div>
                     <div class="meta-card">Created: {{ $campaign->created_at->format('M d, Y') }}</div>
-                    <div class="meta-card">Promoter ID: {{ $campaign->promoter_id }}</div>
                 </div>
             </div>
         </aside>

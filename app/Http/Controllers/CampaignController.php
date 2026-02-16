@@ -9,6 +9,7 @@ use App\Models\Promoter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class CampaignController extends Controller
@@ -49,7 +50,9 @@ class CampaignController extends Controller
 
     public function show(Request $request, Campaign $campaign): View
     {
-        // $campaign->load(['promoter', 'applications.creator']);
+        $campaign->load(['promoter', 'applications.creator']);
+
+        Log::info('Showing campaign', ['campaign_id' => $campaign->id]);
 
         // $activeCreator = $this->activeCreator($request);
         $alreadyApplied = false;
