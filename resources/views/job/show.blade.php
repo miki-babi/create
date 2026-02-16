@@ -31,7 +31,7 @@
                 @endforeach
             </div>
 
-            <div class="mt-6 rounded-2xl border border-slate-200 bg-white/70 p-4">
+            <div class="mt-6 rounded-2xl p-2">
                 <h2 class="headline text-lg font-bold">Campaign brief</h2>
                 <p class="mt-2 text-sm leading-relaxed text-slate-700 whitespace-pre-line">
                     {{ $campaign->description ?: 'No description provided.' }}
