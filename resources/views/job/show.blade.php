@@ -38,7 +38,7 @@
         </section>
 
         <aside class="surface-strong p-5">
-            <h2 class="headline text-xl font-bold">Actions</h2>
+            {{-- <h2 class="headline text-xl font-bold">Actions</h2> --}}
 
             <div class="mt-4 flex flex-col gap-2">
                 @if ($role === 'creator' && $alreadyApplied)
