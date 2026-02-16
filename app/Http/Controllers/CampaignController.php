@@ -65,6 +65,10 @@ public function show(Request $request, Campaign $campaign): View
 
     $role = $userId === $campaign->promoter_id ? 'promoter' : 'creator';
 
+    Log::info('Determined user role for campaign view', [
+        'role' => $role,
+    ]);
+
     return view('job.show', [
         'campaign' => $campaign,
         'role' => $role,
