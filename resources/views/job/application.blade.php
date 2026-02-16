@@ -1,4 +1,4 @@
-@extends('promoter.layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Apply to Campaign')
 
