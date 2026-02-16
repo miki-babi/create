@@ -37,7 +37,7 @@
             </div>
         </section>
 
-        <section class=" fixed absolute bottom-4 right-4  p-5">
+        <section class=" fixed absolute top-4  p-5">
             {{-- <h2 class="headline text-xl font-bold">Actions</h2> --}}
 
             <div class="mt-4 flex flex-col gap-2">
