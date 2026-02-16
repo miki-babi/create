@@ -53,13 +53,7 @@
                 @endif
             </div>
 
-            <div class="mt-5 border-t border-slate-200 pt-4">
-                <p class="label">Quick facts</p>
-                <div class="grid grid-cols-1 gap-2 text-sm">
-                    <div class="meta-card">Applications: {{ $campaign->applications->count() }}</div>
-                    <div class="meta-card">Created: {{ $campaign->created_at->format('M d, Y') }}</div>
-                </div>
-            </div>
+            
         </aside>
     </div>
 @endsection
