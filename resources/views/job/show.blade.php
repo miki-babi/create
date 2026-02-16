@@ -37,23 +37,32 @@
             </div>
         </section>
 
-        <section class=" fixed absolute top-4  p-5">
-            {{-- <h2 class="headline text-xl font-bold">Actions</h2> --}}
+        <section class="fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 p-4 z-50">
+    <div class="max-w-5xl mx-auto flex flex-col gap-2">
+        
+        @if ($role === 'creator' && $alreadyApplied)
+            <a href="{{ route('creator.applications') }}" class="btn-primary text-center text-sm">
+                View my application
+            </a>
+        @elseif ($role === 'creator' && !$alreadyApplied)
+            <a href="{{ route('applications.create', $campaign) }}" class="btn-primary text-center text-sm">
+                Apply to campaign
+            </a>
+        @endif
 
-            <div class="mt-4 flex flex-col gap-2">
-                @if ($role === 'creator' && $alreadyApplied)
-                    <a href="{{ route('creator.applications') }}" class="btn-primary text-center text-sm">View my application</a>
-                @elseif ($role === 'creator' && !$alreadyApplied)
-                    <a href="{{ route('applications.create', $campaign) }}" class="btn-primary text-center text-sm">Apply to campaign</a>
-                @endif
+        @if ($role === 'promoter')
+            <a href="{{ route('campaigns.edit', $campaign) }}" class="btn-primary text-center text-sm">
+                Edit campaign
+            </a>
+            <a href="{{ route('campaigns.applicants', $campaign) }}" class="btn-secondary text-center text-sm">
+                Review applicants
+                <span class="badge chip chip-brand">
+                    {{ $campaign->applications->count() }}
+                </span>
+            </a>
+        @endif
 
-                @if ($role === 'promoter')
-                    <a href="{{ route('campaigns.edit', $campaign) }}" class="btn-primary text-center text-sm">Edit campaign</a>
-                    <a href="{{ route('campaigns.applicants', $campaign) }}" class="btn-secondary text-center text-sm">Review applicants <span class="badge chip chip-brand "> {{ $campaign->applications->count() }}</span></a>
-                @endif
-            </div>
-
-            
-        </section>
+    </div>
+</section>
     </div>
 @endsection
