@@ -43,8 +43,8 @@
             <div class="mt-4 flex flex-col gap-2">
                 @if ($role === 'creator' && $alreadyApplied)
                     <a href="{{ route('creator.applications') }}" class="btn-primary text-center text-sm">View my application</a>
-                @else
-                    <a href="{{ route('campaigns.apply', $campaign) }}" class="btn-primary text-center text-sm">Apply as creator</a>
+                @elseif ($role === 'creator' && !$alreadyApplied)
+                    <a href="{{ route('applications.create', $campaign) }}" class="btn-primary text-center text-sm">Apply to campaign</a>
                 @endif
 
                 @if ($role === 'promoter')

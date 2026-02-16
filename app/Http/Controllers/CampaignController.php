@@ -75,6 +75,7 @@ $role = $userId === $promoterId ? 'promoter' : 'creator';
     return view('job.show', [
         'campaign' => $campaign,
         'role' => $role,
+        'alreadyApplied' => $campaign->applications->contains('creator_id', $userId),
     ]);
 }
 
