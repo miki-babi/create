@@ -47,7 +47,7 @@
                     <a href="{{ route('creator.applications') }}" class="btn-primary text-center text-sm">View my
                         application</a>
                 @elseif ($role === 'creator' && !$alreadyApplied)
-                    <a href="{{ route('applications.create', $campaign) }}" class="btn-primary text-center text-sm">Apply to
+                    <a href="{{ route('campaigns.apply', $campaign) }}" class="btn-primary text-center text-sm">Apply to
                         campaign</a>
                 @endif
 
