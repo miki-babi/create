@@ -9,7 +9,7 @@
                 <div>
                     <p class="chip chip-brand mb-2">Open campaign</p>
                     <h1 class="headline text-3xl font-extrabold">{{ $campaign->title }}</h1>
-                    <p class="muted mt-2 text-sm">Posted by {{ $campaign->promoter->company_name ?? 'Unknown promoter' }}</p>
+                    <p class="muted mt-2 text-sm">Posted by {{ $campaign->promoter->company_name ?? 'Unknown promoter' }} Created: {{ $campaign->created_at->format('M d, Y') }}</p>
                 </div>
                 <div class="surface-strong min-w-[12rem] p-3 text-sm">
                     <p class="font-semibold">Budget</p>
@@ -49,7 +49,7 @@
 
                 @if ($role === 'promoter')
                     <a href="{{ route('campaigns.edit', $campaign) }}" class="btn-primary text-center text-sm">Edit campaign</a>
-                    <a href="{{ route('campaigns.applicants', $campaign) }}" class="btn-secondary text-center text-sm">Review applicants</a>
+                    <a href="{{ route('campaigns.applicants', $campaign) }}" class="btn-secondary text-center text-sm">Review applicants <span class="badge">{{ $campaign->applications->count() }}</span></a>
                 @endif
             </div>
 
