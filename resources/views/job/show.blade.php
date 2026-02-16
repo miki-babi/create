@@ -9,7 +9,9 @@
                 <div>
                     <p class="chip chip-brand mb-2">Open campaign</p>
                     <h1 class="headline text-3xl font-extrabold">{{ $campaign->title }}</h1>
-                    <p class="muted mt-2 text-sm">Posted by {{ $campaign->promoter->company_name ?? 'Unknown promoter' }}</br> Created: {{ $campaign->created_at->format('M d, Y') }}</p>
+                    <p class="muted mt-2 text-sm">Posted by
+                        {{ $campaign->promoter->company_name ?? 'Unknown promoter' }}</br> Created:
+                        {{ $campaign->created_at->format('M d, Y') }}</p>
                 </div>
                 <div class="surface-strong min-w-[12rem] p-3 text-sm">
                     <p class="font-semibold">Budget</p>
@@ -24,7 +26,7 @@
                 @if ($campaign->niche)
                     <span class="chip chip-brand">{{ $campaign->niche }}</span>
                 @endif
-                @foreach (($campaign->platforms ?? []) as $platform)
+                @foreach ($campaign->platforms ?? [] as $platform)
                     <span class="chip">{{ $platform }}</span>
                 @endforeach
             </div>
@@ -42,18 +44,23 @@
 
             <div class="mt-4 flex flex-col gap-2">
                 @if ($role === 'creator' && $alreadyApplied)
-                    <a href="{{ route('creator.applications') }}" class="btn-primary text-center text-sm">View my application</a>
+                    <a href="{{ route('creator.applications') }}" class="btn-primary text-center text-sm">View my
+                        application</a>
                 @elseif ($role === 'creator' && !$alreadyApplied)
-                    <a href="{{ route('applications.create', $campaign) }}" class="btn-primary text-center text-sm">Apply to campaign</a>
+                    <a href="{{ route('applications.create', $campaign) }}" class="btn-primary text-center text-sm">Apply to
+                        campaign</a>
                 @endif
 
                 @if ($role === 'promoter')
-                    <a href="{{ route('campaigns.edit', $campaign) }}" class="btn-primary text-center text-sm">Edit campaign</a>
-                    <a href="{{ route('campaigns.applicants', $campaign) }}" class="btn-secondary text-center text-sm">Review applicants <span class="badge chip chip-brand "> {{ $campaign->applications->count() }}</span></a>
+                    <a href="{{ route('campaigns.applicants', $campaign) }}" class="btn-primary text-center text-sm">Review
+                        applicants <span class="badge chip chip-brand "> {{ $campaign->applications->count() }}</span></a>
+
+                    <a href="{{ route('campaigns.edit', $campaign) }}" class="btn-secondary text-center text-sm">Edit
+                        campaign</a>
                 @endif
             </div>
 
-            
+
         </section>
     </div>
 @endsection
