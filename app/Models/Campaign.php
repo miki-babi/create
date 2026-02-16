@@ -30,4 +30,5 @@ class Campaign extends Model
     {
         return $this->hasMany(CampaignApplication::class);
     }
+    
 }

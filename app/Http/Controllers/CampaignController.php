@@ -48,27 +48,29 @@ class CampaignController extends Controller
         ]);
     }
 
-    public function show(Request $request, Campaign $campaign): View
-    {
-        $campaign->load(['promoter', 'applications.creator']);
+public function show(Request $request, Campaign $campaign): View
+{
+    $campaign->load(['promoter', 'applications.creator']);
 
-        Log::info('Showing campaign', ['campaign' => $campaign, 'promoter_id' => $campaign->promoter_id , 'auth_user_id' => Auth::id()]);
+    if (!Auth::check()) {
+    abort(403);
+}
+    $userId = Auth::id();
 
-        // $activeCreator = $this->activeCreator($request);
-        $alreadyApplied = false;
+    Log::info('Showing campaign', [
+        'campaign_id' => $campaign->id,
+        'promoter_id' => $campaign->promoter_id,
+        'auth_user_id' => $userId
+    ]);
 
-        // if ($activeCreator !== null) {
-        //     $alreadyApplied = CampaignApplication::query()
-        //         ->where('campaign_id', $campaign->id)
-        //         ->where('creator_id', $activeCreator->id)
-        //         ->exists();
-        // }
+    $role = $userId === $campaign->promoter_id ? 'promoter' : 'creator';
 
-        return view('job.show', [
-            'campaign' => $campaign,
-            'alreadyApplied' => $alreadyApplied,
-        ]);
-    }
+    return view('job.show', [
+        'campaign' => $campaign,
+        'role' => $role,
+        'alreadyApplied' => false,
+    ]);
+}
 
     public function create(Request $request): View|RedirectResponse
     {
