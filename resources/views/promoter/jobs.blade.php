@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="mt-4 flex flex-wrap gap-2">
-                        <a href="{{ route('campaigns.edit', $campaign) }}" class="btn-secondary text-sm">Edit</a>
+                        <a href="{{ route('campaigns.show', $campaign) }}" class="btn-secondary text-sm">Edit</a>
                         <a href="{{ route('campaigns.applicants', $campaign) }}" class="btn-primary text-sm">Applicants</a>
                     </div>
                 </article>

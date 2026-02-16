@@ -49,17 +49,17 @@ class CampaignController extends Controller
 
     public function show(Request $request, Campaign $campaign): View
     {
-        $campaign->load(['promoter', 'applications.creator']);
+        // $campaign->load(['promoter', 'applications.creator']);
 
-        $activeCreator = $this->activeCreator($request);
+        // $activeCreator = $this->activeCreator($request);
         $alreadyApplied = false;
 
-        if ($activeCreator !== null) {
-            $alreadyApplied = CampaignApplication::query()
-                ->where('campaign_id', $campaign->id)
-                ->where('creator_id', $activeCreator->id)
-                ->exists();
-        }
+        // if ($activeCreator !== null) {
+        //     $alreadyApplied = CampaignApplication::query()
+        //         ->where('campaign_id', $campaign->id)
+        //         ->where('creator_id', $activeCreator->id)
+        //         ->exists();
+        // }
 
         return view('job.show', [
             'campaign' => $campaign,
