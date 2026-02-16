@@ -351,10 +351,7 @@
                 <a href="{{ route('creator.register') }}" class="menu-link {{ $isProfile ? 'is-active' : '' }}">Profile</a>
             </nav>
 
-            <div class="flex items-center gap-3">
-                <span class="relative inline-block text-slate-500">!</span>
-                <span class="profile-bubble">M</span>
-            </div>
+            
         </div>
     </header>
 
