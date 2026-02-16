@@ -11,13 +11,16 @@
             </div>
 
             <div class="flex items-center gap-2">
+                @if ($isPromoter ?? false)
+                    <a href="{{ route('campaigns.create') }}" class="btn-secondary text-sm">Post new</a>
+                @endif
                 <button type="button" class="btn-secondary text-sm">Filters</button>
                 <a href="#filters" class="btn-primary text-sm">Search</a>
             </div>
         </div>
     </section>
 
-    <section id="filters" class="surface mb-5 p-4 md:p-5 reveal">
+    {{-- <section id="filters" class="surface mb-5 p-4 md:p-5 reveal">
         <form action="{{ route('campaigns.index') }}" method="GET" class="grid grid-cols-1 gap-3 md:grid-cols-4 md:items-end">
             <div>
                 <label class="label" for="q">Search</label>
@@ -41,7 +44,7 @@
                 <button type="submit" class="btn-primary w-full text-sm">Search</button>
             </div>
         </form>
-    </section>
+    </section> --}}
 
     <section class="space-y-4 stagger">
         @forelse ($campaigns as $campaign)

@@ -16,6 +16,8 @@ class CampaignController extends Controller
 {
     public function index(Request $request): View
     {
+        $isPromoter = Auth::user()?->role === 'promoter';
+
         $filters = [
             'q' => trim((string) $request->input('q', '')),
             'niche' => trim((string) $request->input('niche', '')),
@@ -45,6 +47,7 @@ class CampaignController extends Controller
         return view('job.index', [
             'campaigns' => $campaigns,
             'filters' => $filters,
+            'isPromoter' => $isPromoter,
         ]);
     }
 
