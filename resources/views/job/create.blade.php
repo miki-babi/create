@@ -13,7 +13,8 @@
             <a href="{{ route('promoter.campaigns') }}" class="btn-secondary text-sm">Back to my campaigns</a>
         </div>
 
-        <form action="{{ route('campaigns.store') }}" method="POST" class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <form id="campaign-create-form" action="{{ route('campaigns.store') }}" method="POST"
+            class="grid grid-cols-1 gap-4 md:grid-cols-2">
             @csrf
 
             <div class="md:col-span-2">
@@ -53,9 +54,32 @@
             </div>
 
             <div class="md:col-span-2 mt-1 flex flex-wrap gap-2">
-                <button type="submit" class="btn-primary text-sm">Post campaign</button>
+                <button id="campaign-create-submit" type="submit"
+                    class="btn-primary text-sm disabled:cursor-not-allowed disabled:opacity-70">
+                    Post campaign
+                </button>
                 <a href="{{ route('promoter.campaigns') }}" class="btn-secondary text-sm">Cancel</a>
             </div>
         </form>
     </section>
+
+    <script>
+        (function() {
+            const form = document.getElementById('campaign-create-form');
+            const submitButton = document.getElementById('campaign-create-submit');
+
+            if (!form || !submitButton) {
+                return;
+            }
+
+            form.addEventListener('submit', () => {
+                if (submitButton.disabled) {
+                    return;
+                }
+
+                submitButton.disabled = true;
+                submitButton.textContent = 'Posting...';
+            });
+        })();
+    </script>
 @endsection
