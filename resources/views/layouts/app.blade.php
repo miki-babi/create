@@ -342,8 +342,7 @@
     <header class="topbar">
         <div class="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
             <div class="flex items-center gap-2">
-                <span class="icon-dot">4</span>
-                <a href="{{ route('campaigns.index') }}" class="headline text-2xl font-extrabold text-slate-900">CreatorHub</a>
+                <a href="{{ route('campaigns.index') }}" class="icon-dot">C</a>
             </div>
 
             <nav class="mobile-scroll items-center gap-2 flex">
