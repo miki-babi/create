@@ -49,7 +49,7 @@
 
                 @if ($role === 'promoter')
                     <a href="{{ route('campaigns.edit', $campaign) }}" class="btn-primary text-center text-sm">Edit campaign</a>
-                    <a href="{{ route('campaigns.applicants', $campaign) }}" class="btn-secondary text-center text-sm">Review applicants <span class="badge chip chip-brand px-2"> {{ $campaign->applications->count() }}</span></a>
+                    <a href="{{ route('campaigns.applicants', $campaign) }}" class="btn-secondary text-center text-sm">Review applicants <span class="badge chip chip-brand "> {{ $campaign->applications->count() }}</span></a>
                 @endif
             </div>
 
