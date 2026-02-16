@@ -37,7 +37,7 @@
             </div>
         </section>
 
-        <aside class="surface-strong p-5">
+        <section class="  p-5">
             {{-- <h2 class="headline text-xl font-bold">Actions</h2> --}}
 
             <div class="mt-4 flex flex-col gap-2">
@@ -54,6 +54,6 @@
             </div>
 
             
-        </aside>
+        </section>
     </div>
 @endsection
