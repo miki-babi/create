@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('promoter.layouts.app')
 
 @section('title', $promoter->company_name)
 
