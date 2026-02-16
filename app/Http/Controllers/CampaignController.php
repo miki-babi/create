@@ -55,7 +55,8 @@ public function show(Request $request, Campaign $campaign): View
     if (!Auth::check()) {
     abort(403);
 }
-    $userId = Auth::id();
+    // $userId = (int) Auth::id();
+$userId = (int) Auth::id();
 
     Log::info('Showing campaign', [
         'campaign_id' => $campaign->id,
@@ -63,7 +64,9 @@ public function show(Request $request, Campaign $campaign): View
         'auth_user_id' => $userId
     ]);
 
-    $role = $userId === $campaign->promoter_id ? 'promoter' : 'creator';
+$promoterId = (int) $campaign->promoter_id;
+
+$role = $userId === $promoterId ? 'promoter' : 'creator';
 
     Log::info('Determined user role for campaign view', [
         'role' => $role,
