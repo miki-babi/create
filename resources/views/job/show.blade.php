@@ -9,7 +9,7 @@
                 <div>
                     <p class="chip chip-brand mb-2">Open campaign</p>
                     <h1 class="headline text-3xl font-extrabold">{{ $campaign->title }}</h1>
-                    <p class="muted mt-2 text-sm">Posted by {{ $campaign->promoter->company_name ?? 'Unknown promoter' }} Created: {{ $campaign->created_at->format('M d, Y') }}</p>
+                    <p class="muted mt-2 text-sm">Posted by {{ $campaign->promoter->company_name ?? 'Unknown promoter' }}</br> Created: {{ $campaign->created_at->format('M d, Y') }}</p>
                 </div>
                 <div class="surface-strong min-w-[12rem] p-3 text-sm">
                     <p class="font-semibold">Budget</p>
