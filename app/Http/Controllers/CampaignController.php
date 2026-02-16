@@ -130,7 +130,12 @@ class CampaignController extends Controller
     public function edit(Request $request, Campaign $campaign): View
     {
         // $this->authorizePromoterCampaignAccess($request, $campaign);
-            $promoter = Auth::user();
+        $promoter = Auth::user();
+        Log::info('Editing campaign', [
+            'campaign_id' => $campaign->id,
+            'promoter_id' => $campaign->promoter_id,
+            'auth_user_id' => $promoter ? $promoter->id : null
+        ]);
         if ($promoter === null || $campaign->promoter_id !== $promoter->id) {
             abort(403);
         }
